@@ -1,0 +1,18 @@
+import numpy as np
+import skimage.data
+from skimage.measure import compare_psnr
+import numpy as np
+import cv2
+import pybm3d
+from google.colab.patches import cv2_imshow
+noise_std_dev = 40
+img = cv2.imread('/content/images (4).jpg')
+noisy_img = img #+ noise
+out = pybm3d.bm3d.bm3d(noisy_img, noise_std_dev)
+out = pybm3d.bm3d.bm3d(out, noise_std_dev)
+noise_psnr = compare_psnr(img, noisy_img)
+out_psnr = compare_psnr(img, out)
+print("PSNR of noisy image: ", noise_psnr)
+print("PSNR of reconstructed image: ", out_psnr)
+cv2_imshow(noisy_img)
+cv2_imshow(out)
